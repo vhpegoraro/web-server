@@ -1,0 +1,39 @@
+<h1>Usuários <loading [visible]="isLoading"></loading></h1>
+
+<hr/>
+
+<div class="users-actions">
+    <a [routerLink]="['NewUser']">        
+        <button type="button" class="btn btn-success btn-sm">        
+            <i class="fa fa-plus"></i> 
+            Novo Usuário            
+        </button>
+    </a>        
+</div>    
+
+<table class="table table-hover table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>E-mail</th>
+            <th style="text-align: center;">Alterar</th>
+            <th style="text-align: center;">Remover</th>            
+        </tr>                    
+    </thead>
+    <tbody>
+        <tr *ngFor="#user of users">
+            <td>{{ user.id }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td style="text-align: center;">
+                <a [routerLink]="['EditUser', { id: user.id }]">
+                    <i class="fa fa-edit text-info"></i>
+                </a>
+            </td>
+            <td style="text-align: center;">
+                <i (click)="deleteUser(user)" class="fa fa-remove text-danger clickable"></i>
+            </td>                        
+        </tr>                    
+    </tbody>                    
+</table>

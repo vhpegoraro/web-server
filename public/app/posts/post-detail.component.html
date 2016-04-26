@@ -1,0 +1,26 @@
+<div *ngIf="post != null" class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">{{ post.title }}</h3>
+    </div>
+    <div class="panel-body">
+        
+        {{ post.body }}
+        
+        <hr/>
+        
+        <h5 *ngIf="isLoadingComments"><loading [visible]="true"></loading> Carregando ...</h5>
+        
+        <div *ngFor="#comment of comments" class="media">
+            <div class="media-left">
+                <a href="#">
+                    <img class="media-object thumbnail" src="http://lorempixel.com/80/80/people?random={{ comment.id }}">
+                </a>
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading">{{ comment.name }}</h4>
+                {{ comment.body }}
+            </div>
+        </div>        
+        
+    </div>
+</div>

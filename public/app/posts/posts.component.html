@@ -1,0 +1,35 @@
+
+<h1>Posts <loading [visible]="postsLoading"></loading></h1>
+
+<div class="row">
+    
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Usuário</label>
+            <select class="form-control" #option (change)="filter(option.value)">
+                <option *ngIf="usersLoading" value="">Carregando ...</option>                
+                <option *ngIf="!usersLoading" value="">Selecione ...</option>
+                <option *ngFor="#user of users" value="{{ user.id }}">{{ user.name }}</option>
+            </select>
+             <pagination [items]="posts" (page-changed)="onPageChanged($event)"></pagination>
+        </div>                    
+        <ul class="list-group posts">
+            <li 
+                *ngFor="#post of pagedPosts" 
+                class="list-group-item"
+                [class.active]="selectedPost == post" 
+                (click)="show(post)">
+                {{ post.id }} - {{ post.title }}
+            </li>  
+        </ul>
+    </div>
+    
+    <div class="col-md-6">        
+        <post-detail 
+            [post]="selectedPost"
+            [isLoadingComments]="commentsLoading"
+            [comments]="comments">
+        </post-detail>                
+    </div>        
+            
+</div>    

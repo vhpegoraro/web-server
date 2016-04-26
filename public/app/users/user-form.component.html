@@ -1,0 +1,70 @@
+<h1>{{ title }}&nbsp;<i *ngIf="isLoading" class="fa fa-spinner fa-spin text-success"></i></h1>
+
+<hr/>
+
+<form [ngFormModel]="form" (ngSubmit)="save()">
+    <div class="row">
+        <div class="col-md-6">        
+            <fieldset>
+                <legend>Informações Pessoais</legend>                    
+                <div class="form-group">
+                    <label for="name">Nome</label>
+                    <input 
+                        class="form-control" id="name" ngControl="name"
+                        [(ngModel)]="user.name" #name="ngForm" [class.has-errors]="hasErrors('name')">
+                    <div *ngIf="hasErrors('name')">            
+                        <div *ngIf="name.errors.required"> 
+                            <div class="has-errors">Informe o nome do usuário</div>
+                        </div>
+                    </div> 
+                </div>
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" class="form-control" id="email" ngControl="email" 
+                           [(ngModel)]="user.email" #email="ngForm" [class.has-errors]="hasErrors('email')">
+                    <div *ngIf="hasErrors('email')">            
+                        <div *ngIf="email.errors"> 
+                            <div class="has-errors">Informe um e-mail válido</div>
+                        </div>
+                    </div>                           
+                </div>  
+                <div class="form-group">
+                    <label for="phone">Telefone</label>
+                    <input class="form-control" id="phone" [(ngModel)]="user.phone" ngControl="phone" #phone="ngForm">
+                </div>
+            </fieldset>        
+        </div>
+        <div class="col-md-6">        
+            <fieldset ngControlGroup="address">
+                <legend>Endereço</legend>                    
+                <div class="form-group">
+                    <label for="address">Logradouro</label>
+                    <input class="form-control" id="street" 
+                           placeholder="Rua, Avenida, Alameda, etc ..."
+                           [(ngModel)]="user.address.street" ngControl="street">
+                </div>
+                <div class="form-group">
+                    <label for="suite">Bairro</label>
+                    <input class="form-control" id="suite" [(ngModel)]="user.address.suite" ngControl="suite" #suite="ngForm">
+                </div>  
+                <div class="form-group">
+                    <label for="city">Cidade</label>
+                    <input class="form-control" id="city" [(ngModel)]="user.address.city" ngControl="city" #city="ngForm">
+                </div>
+            </fieldset>        
+        </div>        
+    </div>    
+    <button *ngIf="!isSaving"
+        type="submit" 
+        class="btn btn-success"
+        [disabled]="!form.valid">
+        <i class="fa fa-check"></i> 
+        Salvar
+    </button>
+    <div *ngIf="isSaving">
+        <loading [visible]="true"></loading>
+        &nbsp; 
+        Salvando ...
+    </div>
+    &nbsp;        
+</form>

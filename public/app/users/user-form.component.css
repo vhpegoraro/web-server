@@ -1,0 +1,11 @@
+.user-form {
+    
+    background-color: cornflowerblue;
+}
+
+.has-errors {
+    
+    border-color: red;
+    border-width: 1.5px;
+    color: red;
+}
